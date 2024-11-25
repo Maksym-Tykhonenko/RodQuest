@@ -14,14 +14,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LogLevel, OneSignal} from 'react-native-onesignal';
 
 const RodQuestProdactScreen = ({navigation, route}) => {
-  console.log('route==>', route.params);
+  //console.log('route==>', route.params);
   //const [responseToPushPermition, setResponseToPushPermition] = useState(
   //  route.params?.responseToPushPermition,
   //);
   const [addPartToLinkOnce, setAddPartToLinkOnce] = useState(
     route.params?.addPartToLinkOnce,
   );
-  console.log('addPartToLinkOnce==>', addPartToLinkOnce);
+  //console.log('addPartToLinkOnce==>', addPartToLinkOnce);
   ////////////////////////////////
   const [oneSignalId, setOneSignalId] = useState(route.params?.oneSignalId);
   const [idfa, setIdfa] = useState(route.params?.idfa);
@@ -60,6 +60,7 @@ const RodQuestProdactScreen = ({navigation, route}) => {
     'https://app.rastpay.com/payment/',
     'googlepay://',
     'applepay://',
+    'skrill',
   ];
 
   //**івент push_subscribe
@@ -74,7 +75,7 @@ const RodQuestProdactScreen = ({navigation, route}) => {
         fetch(
           `${INITIAL_URL_KEY}?utretg=push_subscribe&jthrhg=${timestamp_user_id}`,
         );
-        console.log('івент push_subscribe !!!');
+        //console.log('івент push_subscribe !!!');
         await AsyncStorage.setItem('pushSubscribeStatus', 'sent');
       }
     };
@@ -90,7 +91,7 @@ const RodQuestProdactScreen = ({navigation, route}) => {
       fetch(
         `${INITIAL_URL_KEY}?utretg=webview_open&jthrhg=${timestamp_user_id}`,
       );
-      console.log('івент webview_open !!!');
+      //console.log('івент webview_open !!!');
     }, 500);
   }, []);
 
@@ -186,7 +187,7 @@ const RodQuestProdactScreen = ({navigation, route}) => {
     (pid ? `&pid=${pid}` : '') +
     (!addPartToLinkOnce ? `&yhugh=true` : '');
 
-  console.log('My product Url==>', product);
+  //console.log('My product Url==>', product);
   //Alert.alert(product);
 
   //const customUserAgent = `Mozilla/5.0 (${deviceInfo.deviceSystemName}; ${deviceInfo.deviceModel}) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1`;
@@ -213,7 +214,7 @@ const RodQuestProdactScreen = ({navigation, route}) => {
 
   const handleNavigationStateChange = navState => {
     const {url} = navState;
-    //console.log('NavigationState: ', url);
+    console.log('NavigationState: ', url);
     //console.log('navState: ', navState);
     if (
       url.includes(
@@ -246,7 +247,7 @@ const RodQuestProdactScreen = ({navigation, route}) => {
     } else if (
       url.includes('neteller') ||
       url.includes('rapidtransfer') ||
-      url.includes('skrill') ||
+      //url.includes('skrill') ||
       (url.includes('paysafecard') && checkNineUrl === product)
     ) {
       //Linking.openURL(url);
@@ -257,7 +258,7 @@ const RodQuestProdactScreen = ({navigation, route}) => {
 
   const onShouldStartLoadWithRequest = event => {
     const {url} = event;
-    //console.log('onShouldStartLoadWithRequest========> ', url);
+    console.log('onShouldStartLoadWithRequest========> ', url);
 
     if (url.startsWith('mailto:')) {
       Linking.openURL(url);
@@ -284,10 +285,13 @@ const RodQuestProdactScreen = ({navigation, route}) => {
       url.includes('https://web.telegram')
     ) {
       Linking.openURL(url);
-      return false;
-    } else if (url.includes('pay.skrill.com') && checkNineUrl === product) {
-      //console.log('Hello!!!!!!!!!!!!!!!!!!!!!');
+      return false; // && checkNineUrl === product
+    } else if (url.includes('pay.skrill.com')) {
+      console.log('Hello!!!!!!!!!!!!!!!!!!!!!');
       Linking.openURL(url);
+      refWebview.current.injectJavaScript(
+        `window.location.href = '${redirectUrl}'`,
+      );
       return false;
     } else if (url.includes('applepay://') || url.includes('googlepay://')) {
       // Відкриваємо URL, якщо він веде на Apple Pay або Google Pay
@@ -433,3 +437,6 @@ const RodQuestProdactScreen = ({navigation, route}) => {
 };
 
 export default RodQuestProdactScreen;
+
+// https://pay.skrill.com/wallet/checkout/options/login?sid=bde7b0f9a42612c2203c1332a46f200a
+// https://pay.neteller.com/wallet/checkout?sid=1e39d18754b3fbd49a218c05fb577245

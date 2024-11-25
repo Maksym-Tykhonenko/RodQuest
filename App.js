@@ -175,26 +175,26 @@ function App() {
   const [route, setRoute] = useState(false);
   //console.log('route===>', route);
   const [responseToPushPermition, setResponseToPushPermition] = useState(false);
-  //console.log('Дозвіл на пуши прийнято? ===>', responseToPushPermition);
+  ////('Дозвіл на пуши прийнято? ===>', responseToPushPermition);
   const [uniqVisit, setUniqVisit] = useState(true);
   //console.log('uniqVisit===>', uniqVisit);
   const [addPartToLinkOnce, setAddPartToLinkOnce] = useState(true);
-  console.log('addPartToLinkOnce in App==>', addPartToLinkOnce);
+  //console.log('addPartToLinkOnce in App==>', addPartToLinkOnce);
   //////////////////Parametrs
   const [idfa, setIdfa] = useState(false);
-  console.log('idfa==>', idfa);
+  //console.log('idfa==>', idfa);
   const [oneSignalId, setOneSignalId] = useState(null);
   //console.log('oneSignalId==>', oneSignalId);
   const [appsUid, setAppsUid] = useState(null);
   const [sab1, setSab1] = useState();
   const [pid, setPid] = useState();
-  console.log('appsUid==>', appsUid);
-  console.log('sab1==>', sab1);
+  //console.log('appsUid==>', appsUid);
+  //console.log('sab1==>', sab1);
   //console.log('pid==>', pid);
   const [customerUserId, setCustomerUserId] = useState(null);
-  console.log('customerUserID==>', customerUserId);
+  //console.log('customerUserID==>', customerUserId);
   const [idfv, setIdfv] = useState();
-  console.log('idfv==>', idfv);
+  //console.log('idfv==>', idfv);
   /////////Atributions
   const [adServicesToken, setAdServicesToken] = useState(null);
   //console.log('adServicesToken', adServicesToken);
@@ -222,7 +222,7 @@ function App() {
       await fetch(
         `${INITIAL_URL_KEY}?utretg=uniq_visit&jthrhg=${timestamp_user_id}`,
       );
-      console.log('унікальний візит!!!');
+      //console.log('унікальний візит!!!');
       setUniqVisit(false);
       await AsyncStorage.setItem('uniqVisitStatus', 'sent');
     }
@@ -397,6 +397,9 @@ function App() {
       fetch(
         `${INITIAL_URL_KEY}?utretg=push_open_browser&jthrhg=${timestamp_user_id}`,
       );
+      //fetch(
+      //  `${event.notification.launchURL}?utretg=push_open_browser&jthrhg=${timestamp_user_id}`,
+      //);
       console.log('івент push_open_browser OneSignal');
     } else {
       fetch(
@@ -529,7 +532,7 @@ function App() {
   useEffect(() => {
     const checkUrl = `${INITIAL_URL_KEY}?`;
 
-    const targetData = new Date('2024-11-21T10:00:00'); //дата з якої поч працювати webView
+    const targetData = new Date('2024-11-28T10:00:00'); //дата з якої поч працювати webView
     const currentData = new Date(); //текущая дата
 
     if (!route) {
