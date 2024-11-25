@@ -3,7 +3,7 @@ workflows:
     name: Advanture Through Rhodes
     max_build_duration: 120
     integrations:
-      app_store_connect: RhodesCodemagicApiKey
+      app_store_connect: RhodesCodemagicApiKey2
     environment:
       ios_signing:
         distribution_type: app_store
