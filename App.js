@@ -1,3 +1,5 @@
+import React, {useState, useEffect, useRef} from 'react';
+import {TouchableOpacity, AppState, Animated, View} from 'react-native';
 import {AppProvider} from './store/appContext';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -19,8 +21,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import Toast from 'react-native-toast-message';
 import {toastConfig} from './config/toastConfiguration';
-import {TouchableOpacity, AppState, Animated, View} from 'react-native';
-import {useState, useEffect, useRef} from 'react';
 import {
   toggleBackgroundMusic,
   setupPlayer,
